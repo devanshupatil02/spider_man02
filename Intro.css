@@ -1,0 +1,224 @@
+/* ═══════════════════════════════════════════
+   INTRO WRAPPER
+═══════════════════════════════════════════ */
+.intro-wrap {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 200;
+  overflow: hidden;
+}
+
+.intro-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ── Lightning ── */
+.intro-lightning {
+  position: absolute;
+  inset: 0;
+  background: #c8dcff;
+  pointer-events: none;
+  z-index: 8;
+}
+
+/* ── Fog ── */
+.intro-fog {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  background:
+    radial-gradient(ellipse 150% 55% at 50% 100%, rgba(14,22,55,.75) 0%, transparent 65%),
+    radial-gradient(ellipse 80%  40% at 8%  78%,  rgba(8,16,42,.5)   0%, transparent 55%),
+    radial-gradient(ellipse 80%  40% at 92% 72%,  rgba(8,16,42,.5)   0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 2.5s ease;
+}
+.intro-fog--on {
+  opacity: 1;
+  animation: fogPulse 7s ease-in-out infinite alternate;
+}
+@keyframes fogPulse {
+  from { opacity: .9; }
+  to   { opacity: 1;  }
+}
+
+/* ── Cinematic bars ── */
+.intro-bar {
+  position: absolute;
+  left: 0; right: 0;
+  background: #000;
+  z-index: 20;
+  height: 0;
+}
+.intro-bar-top { top: 0; }
+.intro-bar-bot { bottom: 0; }
+
+/* ── Vignette ── */
+.intro-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center,
+    transparent 30%, rgba(0,0,0,.96) 100%);
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* ════════════════════════════════════════
+   TITLE CARD  — Ultimate Spider-Man style
+   White text · thick red stroke · wings
+════════════════════════════════════════ */
+.intro-title-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 25;
+}
+
+/* ── Marvel banner above ── */
+.intro-marvel-banner {
+  background: #e62429;
+  color: #fff;
+  font-family: 'Anton', 'Impact', 'Arial Black', sans-serif;
+  font-size: clamp(.65rem, 1.6vw, 1.05rem);
+  letter-spacing: .35em;
+  padding: .22em 2.2em;
+  margin-bottom: .3em;
+  clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0% 50%);
+  text-shadow: none;
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Red geometric wing shapes (SVG positioned behind title) ── */
+.intro-title-wings {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(340px, 80vw, 900px);
+  height: auto;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* ── "ULTIMATE" subtitle ── */
+.intro-ultimate {
+  font-family: 'Anton', 'Impact', 'Arial Black', sans-serif;
+  font-size: clamp(1.4rem, 4.5vw, 4.2rem);
+  letter-spacing: .22em;
+  color: #fff;
+  /* thick red outline like the logo */
+  -webkit-text-stroke: clamp(2px, .5vw, 5px) #e62429;
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 30px rgba(230,36,41,.5),
+    0 4px 20px rgba(0,0,0,.9),
+    0 8px 40px rgba(0,0,0,.7);
+  position: relative;
+  z-index: 2;
+  margin-bottom: -.2em;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* ── Main SPIDER-MAN title ── */
+.intro-title {
+  font-family: 'Anton', 'Impact', 'Arial Black', sans-serif;
+  font-size: clamp(4rem, 14vw, 13.5rem);
+  letter-spacing: .04em;
+  line-height: .88;
+  color: #ffffff;
+  /* thick red stroke — key to the Ultimate look */
+  -webkit-text-stroke: clamp(3px, .9vw, 10px) #e62429;
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 50px rgba(230,36,41,.6),
+    0 0 20px rgba(230,36,41,.3),
+    0 6px 24px rgba(0,0,0,1),
+    0 12px 50px rgba(0,0,0,.8);
+  transform-origin: center;
+  position: relative;
+  z-index: 2;
+  will-change: transform, opacity, filter;
+}
+
+/* White inner shine sweep (like the logo highlight) */
+.intro-title::before {
+  content: 'SPIDER-MAN';
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  background: linear-gradient(
+    108deg,
+    transparent 20%,
+    rgba(255,255,255,.45) 48%,
+    transparent 76%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 300% 100%;
+  background-position: -100% 0;
+  animation: shineSweep 3.2s ease .15s forwards;
+  z-index: 3;
+  -webkit-text-stroke: 0;
+  paint-order: fill;
+}
+@keyframes shineSweep {
+  from { background-position: -100% 0; }
+  to   { background-position: 240%  0; }
+}
+
+/* ── Tagline ── */
+.intro-tag {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-style: italic;
+  font-size: clamp(.8rem, 1.9vw, 1.35rem);
+  letter-spacing: .1em;
+  color: rgba(255,240,210,.82);
+  margin-top: 1.1rem;
+  text-shadow:
+    0 2px 18px rgba(0,0,0,.98),
+    0 0 30px rgba(230,36,41,.2);
+  will-change: transform, opacity;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+/* ── Skip button ── */
+.intro-skip {
+  position: absolute;
+  bottom: 4%;
+  right: 3%;
+  z-index: 50;
+  background: rgba(230,36,41,.12);
+  border: 1.5px solid rgba(230,36,41,.4);
+  color: rgba(255,255,255,.6);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  padding: .45rem 1.2rem;
+  cursor: pointer;
+  border-radius: 2px;
+  backdrop-filter: blur(4px);
+  transition: all .3s;
+  font-family: 'Cinzel', serif;
+}
+.intro-skip:hover {
+  background: rgba(230,36,41,.5);
+  color: #fff;
+  border-color: #e62429;
+  box-shadow: 0 0 20px rgba(230,36,41,.4);
+}
